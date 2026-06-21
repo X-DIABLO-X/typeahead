@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "markdown-it": "^14.2.0",
+    "puppeteer": "^25.1.0"
+  }
+}

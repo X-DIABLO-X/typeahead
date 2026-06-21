@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap');
+
+:root {
+  /* ── Sunset theme (locked) ─────────────────────────────── */
+  --theme-accent-1: #FF8C42;
+  --theme-accent-2: #FF4757;
+  --theme-accent-3: #6C5CE7;
+  --theme-black: #2C1810;
+  --theme-white: #FFF4E6;
+  --theme-bg: #FFE5D9;
+
+  /* Legacy aliases for SearchBox.css */
+  --lazy-yellow: var(--theme-accent-1);
+  --lazy-cyan: var(--theme-accent-2);
+  --lazy-pink: var(--theme-accent-3);
+  --lazy-black: var(--theme-black);
+  --lazy-white: var(--theme-white);
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background-color: var(--theme-bg);
+  /* Cream + grid background — animated to drift slowly diagonally.
+     Two linear-gradients cross (vertical + horizontal) and both
+     slide along the same diagonal so the grid appears to move
+     smoothly without revealing seams. */
+  background-image:
+    linear-gradient(rgba(44, 24, 16, 0.10) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 24, 16, 0.10) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: 0 0, 0 0;
+  background-attachment: fixed;
+  color: var(--theme-black);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden; /* No scrollbar */
+  position: relative;
+  animation: grid-drift 6s linear infinite;
+}
+
+/* Slow diagonal drift of the grid — both layers move the same
+   amount so the lines stay perfectly aligned. */
+@keyframes grid-drift {
+  from { background-position: 0 0, 0 0; }
+  to   { background-position: 32px 32px, 32px 32px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+}
+
+/* Bold offset accent slabs behind the app for neobrutalism depth */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  border: 4px solid var(--theme-black);
+  opacity: 0.85;
+  transition: background-color 0.3s;
+}
+
+body::before {
+  top: -60px;
+  left: -80px;
+  width: 360px;
+  height: 360px;
+  background: var(--theme-accent-1);
+  transform: rotate(-8deg);
+  box-shadow: 10px 10px 0 var(--theme-black);
+}
+
+body::after {
+  bottom: -90px;
+  right: -70px;
+  width: 320px;
+  height: 320px;
+  background: var(--theme-accent-3);
+  transform: rotate(12deg);
+  box-shadow: 10px 10px 0 var(--theme-black);
+}
+
+@media (max-width: 680px) {
+  body::before {
+    width: 220px;
+    height: 220px;
+    top: -40px;
+    left: -60px;
+  }
+  body::after {
+    width: 200px;
+    height: 200px;
+    bottom: -60px;
+    right: -50px;
+  }
+}
+
+#root {
+  width: 100%;
+  max-width: 720px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+::selection {
+  background: var(--theme-accent-1);
+  color: var(--theme-black);
+}
+
+/* Hide scrollbars globally — single-screen layout */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
